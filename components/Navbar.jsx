@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import Link from 'next/link';
+import images from '../assets';
 
-const Navbar = () => (
-  <div>Navbar</div>
-);
+const Navbar = () => {
+  const { theme, setTheme } = useTheme();
+  console.log({ theme });
+  return (
+    <nav className="flexBetween w-full fixed z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
+      <div className="flex flex-1 flex-row justify-start">
+        <Link href="/">
+          <div className="flexCenter">
+            <Image src={images.logo02} objectFit="contain" width={32} height={32} alt="logo" />
+            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1 md:hidden">KryptoPlace</p>
+          </div>
+
+        </Link>
+
+      </div>
+      <div className="flex flex-initial flex-row justify-end mr-2">
+        <input
+          type="checkbox"
+          className="checkbox"
+          id="checkbox"
+          onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        />
+        <label htmlFor="checkbox" className="flexBetween w-8 h-4 bg-black rounded-2xl p-1 relative label">
+          <i className="fas fa-moon" />
+          <i className="fas fa-sun" />
+          <div className="w-3 h-3 absolute bg-white rounded-full ball" />
+
+        </label>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;
